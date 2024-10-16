@@ -1,0 +1,25 @@
+@host = http://localhost:3000
+
+
+### Get all playlists
+GET {{host}}/playlists
+
+### Get all tracks
+GET {{host}}/tracks
+
+### Get tracks by id
+/ GET {{host}}/tracks/4
+
+### Get specific playlist/ GET /playlists/:id`
+/ GET {{host}}/playlists/3
+
+### Post a playlist
+POST {{host}}/playlists
+Content-Type: application/json
+
+{
+  "name": "Hungry Melody",
+  "description": "Beautiful song",
+  "ownerId": 6,
+  "tracks": 12
+}
