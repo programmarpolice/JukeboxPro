@@ -5,7 +5,9 @@ const PORT = 3000;
 
 app.use(express.json());
 
+app.use(require("./api/auth").router);
 app.use("/playlists", require("./api/playlists"));
+app.use("/tracks", require("./api/tracks"));
 
 // Logging middleware
 app.use((req, res, next) => {

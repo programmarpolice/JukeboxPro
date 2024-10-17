@@ -3,21 +3,21 @@ const bcrypt = require("bcrypt");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient().$extends({
   model: {
-    customer: {
-      async register(email, password) {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const customer = await prisma.customer.create({
-          data: { email, password: hashedPassword },
+    user: {
+      async register(username, password) {
+        const hash = await bcrypt.hash(password, 10);
+        const user = await prisma.user.create({
+          data: { username, password: hash },
         });
-        return customer;
+        return user;
       },
-      async login(email, password) {
-        const customer = await prisma.customer.findUniqueOrThrow({
-          where: { email },
+      async login(username, password) {
+        const user = await prisma.user.findUniqueOrThrow({
+          where: { username },
         });
-        const valid = await bcrypt.compare(password, customer.password);
+        const valid = await bcrypt.compare(password, user.password);
         if (!valid) throw Error("Invalid password");
-        return customer;
+        return user;
       },
     },
   },
